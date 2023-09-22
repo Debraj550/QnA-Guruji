@@ -26,3 +26,18 @@
   cursor: pointer;
   transform: scale(1.2);
 }
+
+.answer-container {
+  display: flex;
+  align-items: center;
+}
+
+.answer-container > label {
+  margin: 0px 14px;
+}
+.answer-container > textarea {
+  background-color: #b9b7b7;
+  width: 500px;
+  height: 200px;
+  margin: 10px 0px;
+}

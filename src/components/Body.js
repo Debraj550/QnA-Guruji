@@ -74,19 +74,24 @@ const Body = () => {
             Find Answers
           </button>
           <div className="answer-container">
-            <h3>Answers:</h3>
+            <label>Answers:</label>
             {err ? (
               <div style={{ color: "red" }}>
                 {"Error: Kindly provide the missing fields."}
               </div>
             ) : (
-              ""
+              <textarea readOnly>
+                {answers.length > 0 ? (
+                  <ul>
+                    {answers.map((answer, index) => (
+                      <li key={index}>{answer.text}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  "No answers for the context."
+                )}
+              </textarea>
             )}
-            <ul>
-              {answers.map((answer, index) => (
-                <li key={index}>{answer.text}</li>
-              ))}
-            </ul>
           </div>
         </div>
       ) : (
