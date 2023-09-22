@@ -7,10 +7,11 @@ import predata from "../utils/predata";
 
 const Body = () => {
   const [model, setModel] = useState(null);
-  let [color, setColor] = useState("#ffffff");
+  let [color] = useState("#ffffff");
   const [question, setQuestion] = useState("");
   const [passage, setPassage] = useState(predata);
   const [answers, setAnswers] = useState([]);
+  const [answerString, setAnswerString] = useState("");
   const [err, setErr] = useState(0);
 
   useEffect(() => {
@@ -36,12 +37,17 @@ const Body = () => {
       if (!model || !question || !passage) {
         setErr(1);
         setAnswers([]);
+        setAnswerString("");
         return;
       }
+
       setErr(0);
       const results = await model.findAnswers(question, passage);
-      console.log(results);
+      let s = "";
+      results.map((answer) => (s = s + "->" + answer.text + "\n\n\n"));
+      setAnswerString(s);
       setAnswers(results);
+      console.log(s);
     } catch (error) {
       console.error("Error finding answers:", error);
     }
@@ -67,7 +73,7 @@ const Body = () => {
               type="text"
               value={question}
               onChange={handleQuestionChange}
-              style={{ width: "400px", height: "50px" }}
+              style={{ width: "500px", height: "50px" }}
             />
           </div>
           <button className="find-answer-btn" onClick={findAnswers}>
@@ -80,8 +86,14 @@ const Body = () => {
                 {"Error: Kindly provide the missing fields."}
               </div>
             ) : (
-              <textarea readOnly>
-                {answers.length > 0 ? (
+              <textarea
+                value={
+                  answerString.length > 0
+                    ? answerString
+                    : "No answers for the context."
+                }
+              >
+                {answers.length > 1 ? (
                   <ul>
                     {answers.map((answer, index) => (
                       <li key={index}>{answer.text}</li>
