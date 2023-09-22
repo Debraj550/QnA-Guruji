@@ -1,0 +1,28 @@
+.question-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.question-container > label {
+  margin: 0px 10px;
+}
+
+.passage-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.passage-container > label {
+  margin: 0px 14px;
+}
+
+.find-answer-btn {
+  padding: 5px;
+  transition: transform 0.3s;
+}
+.find-answer-btn:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
